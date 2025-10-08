@@ -19,7 +19,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from crudEx.views import ClientViewSet, ClientAddressViewSet, ClientPhoneViewSet
 from crudEx.views import EmployeeViewSet, EmployeeAddressViewSet, EmployeePhoneViewSet
-from crudEx.views import ProductViewSet
+from crudEx.views import ProductViewSet, ProductCategoryViewSet
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -36,6 +36,7 @@ router.register(r'employee-addresses', EmployeeAddressViewSet)
 router.register(r'employee-phones', EmployeePhoneViewSet)
 
 router.register(r'products', ProductViewSet)
+router.register(r'products-categories', ProductCategoryViewSet)
 
 
 
