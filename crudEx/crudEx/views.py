@@ -99,8 +99,26 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     #TODO add a method to reset the password of an employee django-reset-passwordreset method
 
-    #@action(detail=True, methods=['post'] , url_path='reset-password')
-
+    @action(detail=True, methods=['post'] , url_path='reset-password')
+    def resetPassword(self , request , pk=None):
+        
+        employee = request.data  
+        if employee is not None:
+            emp_mail = employee.get('email', None)
+            emp_password = employee.get('password', None)
+            if emp_mail is not None:
+                try:
+                    
+                    emp = Employee.objects.get(email=emp_mail)
+                    emp.set_password(emp_password)
+                    return Response({"detail": "Password updated successfully."}, status=200)
+                except Employee.DoesNotExist:
+                    return Response({"detail": "Employee not found."}, status=404)
+                
+            else:
+                return Response({"detail": "Email is required."}, status=400)
+        else:
+            return Response({"detail": "Employee data is required."}, status=400)
 
 
 class EmployeeAddressViewSet(viewsets.ModelViewSet):
